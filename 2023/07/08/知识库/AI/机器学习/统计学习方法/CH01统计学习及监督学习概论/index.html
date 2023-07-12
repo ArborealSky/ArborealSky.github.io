@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://yoursite.com/.com//myblog/myblog/source/images/lihang/unsupervised_learning_process.png">
 <meta property="og:image" content="http://yoursite.com/.com//myblog/myblog/source/images/lihang/reinforcement_learning_process.png">
 <meta property="article:published_time" content="2023-07-08T13:18:16.000Z">
-<meta property="article:modified_time" content="2023-07-09T14:59:07.054Z">
+<meta property="article:modified_time" content="2023-07-12T12:29:55.102Z">
 <meta property="article:author" content="树栖九天">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary">
@@ -236,7 +236,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-07-09 22:59:07" itemprop="dateModified" datetime="2023-07-09T22:59:07+08:00">2023-07-09</time>
+      <time title="修改时间：2023-07-12 20:29:55" itemprop="dateModified" datetime="2023-07-12T20:29:55+08:00">2023-07-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -402,7 +402,7 @@
 <p>s 代表 state </p>
 <p>a 表示 action</p>
 <p>r 表示 reward</p>
-<p>上述是强化学习的马尔可夫决策过程的模型，是三者的序列的随机过程，由五元组$$\langle S,A,P,r,\gamma\rangle $$构成</p>
+<p>上述是强化学习的马尔可夫决策过程的模型，是三者的序列的随机过程，由五元组$\langle S,A,P,r,\gamma\rangle $构成</p>
 <p>细节请查书</p>
 </blockquote>
 <blockquote>
@@ -435,7 +435,8 @@
 </blockquote>
 </blockquote>
 <h3 id="按技巧分类"><a href="#按技巧分类" class="headerlink" title="按技巧分类"></a>按技巧分类</h3><h4 id="贝叶斯学习"><a href="#贝叶斯学习" class="headerlink" title="贝叶斯学习"></a>贝叶斯学习</h4><blockquote>
-<p>根据贝叶斯定理，得到计算后验概率的公式<br>$$<br>P(\theta|D)={\frac{P(\theta)P(D|\theta)}{P(D)}}<br>$$</p>
+<p>根据贝叶斯定理，得到计算后验概率的公式</p>
+<p>$$<br>(\theta|D)={\frac{P(\theta)P(D|\theta)}{P(D)}}<br>$$</p>
 </blockquote>
 <blockquote>
 <p>通常使用后验概率达到最大的模型</p>
@@ -475,10 +476,10 @@
 <ol>
 <li><p>损失函数(loss function)或代价函数(cost function)<br>损失函数定义为给定输入$X$的<strong>预测值$f(X)$<strong>和</strong>真实值$Y$<strong>之间的</strong>非负实值</strong>函数，记作$L(Y,f(X))$</p>
 </li>
-<li><p><strong>风险函数</strong>(risk function)或<strong>期望损失</strong>(expected loss)<br>这个和模型的泛化误差的形式是一样的<br>$R_{exp}(f)=E_p[L(Y, f(X))]=\int_{\mathcal X\times\mathcal Y}L(y,f(x))P(x,y), {\rm d}x{\rm d}y$<br>模型$f(X)$关于联合分布$P(X,Y)$的<strong>平均意义下的</strong>损失(<strong>期望</strong>损失)，但是因为$P(X,Y)$是未知的，所以前面的用词是<strong>期望</strong>，以及<strong>平均意义下的</strong>。</p>
+<li><p><strong>风险函数</strong>(risk function)或<strong>期望损失</strong>(expected loss)<br>这个和模型的泛化误差的形式是一样的<br>$ R_{exp}(f)=E_p[L(Y, f(X))]=\int_{\mathcal X\times\mathcal Y}L(y,f(x))P(x,y), {\rm d}x{\rm d}y $<br>模型$f(X)$关于联合分布$P(X,Y)$的<strong>平均意义下的</strong>损失(<strong>期望</strong>损失)，但是因为$P(X,Y)$是未知的，所以前面的用词是<strong>期望</strong>，以及<strong>平均意义下的</strong>。</p>
 <p>这个表示其实就是损失的均值，反映了对整个数据的预测效果的好坏，P(x,y)转换成$\frac {\nu(X=x, Y=y)}{N}$更容易直观理解, 可以参考<a href="../CH09/README.md">CH09</a>，6.2.2节的部分描述来理解，但是真实的数据N是无穷的。</p>
 </li>
-<li><p><strong>经验风险</strong>(empirical risk)或<strong>经验损失</strong>(empirical loss)<br>$R_{emp}(f)=\frac{1}{N}\sum^{N}_{i=1}L(y_i,f(x_i))$<br>模型$f$关于<strong>训练样本集</strong>的平均损失<br>根据大数定律，当样本容量N趋于无穷大时，经验风险趋于期望风险</p>
+<li><p><strong>经验风险</strong>(empirical risk)或<strong>经验损失</strong>(empirical loss)<br>$R_{emp}(f)=\frac{1}{N}\sum^{N}_{i=1}L(y_i,f(x_i))$<br>模型$f$关于<strong>训练样本集</strong>的平均损失<br><strong>根据大数定律，当样本容量N趋于无穷大时，经验风险趋于期望风险</strong></p>
 </li>
 <li><p><strong>结构风险</strong>(structural risk)<br>$R_{srm}(f)=\frac{1}{N}\sum_{i=1}^{N}L(y_i,f(x_i))+\lambda J(f)$<br>$J(f)$为模型复杂度, $\lambda \geqslant 0$是系数，用以权衡经验风险和模型复杂度。</p>
 </li>
