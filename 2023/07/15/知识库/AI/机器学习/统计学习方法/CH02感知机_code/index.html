@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"show_result":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="《统计学习方法》（李航 第二版）课后习题及其代码实现 学习解析优秀的代码，源文件为.ipynb格式 代码来自github项目：fengdu78&#x2F;lihang-code: 《统计学习方法》的代码实现 (github.com) 第2章 感知机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第2章 感知机 coding">
+<meta property="og:url" content="http://yoursite.com/2023/07/15/%E7%9F%A5%E8%AF%86%E5%BA%93/AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/CH02%E6%84%9F%E7%9F%A5%E6%9C%BA_code/index.html">
+<meta property="og:site_name" content="寒木春华">
+<meta property="og:description" content="《统计学习方法》（李航 第二版）课后习题及其代码实现 学习解析优秀的代码，源文件为.ipynb格式 代码来自github项目：fengdu78&#x2F;lihang-code: 《统计学习方法》的代码实现 (github.com) 第2章 感知机">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/07/15/images/lihang/code/CH02感知机_code/output1.png">
+<meta property="og:image" content="http://yoursite.com/2023/07/15/images/lihang/code/CH02感知机_code/output2.png">
+<meta property="og:image" content="http://yoursite.com/2023/07/15/images/lihang/code/CH02感知机_code/output3.png">
+<meta property="article:published_time" content="2023-07-15T14:41:16.000Z">
+<meta property="article:modified_time" content="2023-07-15T15:15:15.392Z">
+<meta property="article:author" content="树栖九天">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2023/07/15/images/lihang/code/CH02感知机_code/output1.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2023/07/15/%E7%9F%A5%E8%AF%86%E5%BA%93/AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/CH02%E6%84%9F%E7%9F%A5%E6%9C%BA_code/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2023/07/15/%E7%9F%A5%E8%AF%86%E5%BA%93/AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/CH02%E6%84%9F%E7%9F%A5%E6%9C%BA_code/","path":"2023/07/15/知识库/AI/机器学习/统计学习方法/CH02感知机_code/","title":"第2章 感知机 coding"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>第2章 感知机 coding | 寒木春华</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">寒木春华</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>Links</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC2%E7%AB%A0-%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="nav-number">1.</span> <span class="nav-text">第2章 感知机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.0.1.</span> <span class="nav-text">二分类模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC2%E7%AB%A0%E6%84%9F%E7%9F%A5%E6%9C%BA-%E4%B9%A0%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">第2章感知机-习题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%A0%E9%A2%982.1"><span class="nav-number">1.1.1.</span> <span class="nav-text">习题2.1</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="树栖九天"
+      src="/images/my_avatar.png">
+  <p class="site-author-name" itemprop="name">树栖九天</p>
+  <div class="site-description" itemprop="description">欢迎，这是一个废柴大学生的博客─=≡Σ(((つ•̀ω•́)つ</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      推荐链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jinx0106.github.io/" title="https:&#x2F;&#x2F;jinx0106.github.io&#x2F;" rel="noopener" target="_blank">思想楼阁-徐瑾</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/07/15/%E7%9F%A5%E8%AF%86%E5%BA%93/AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/CH02%E6%84%9F%E7%9F%A5%E6%9C%BA_code/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/my_avatar.png">
+      <meta itemprop="name" content="树栖九天">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="寒木春华">
+      <meta itemprop="description" content="欢迎，这是一个废柴大学生的博客─=≡Σ(((つ•̀ω•́)つ">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="第2章 感知机 coding | 寒木春华">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          第2章 感知机 coding
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-07-15 22:41:16 / 修改时间：23:15:15" itemprop="dateCreated datePublished" datetime="2023-07-15T22:41:16+08:00">2023-07-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%9F%A5%E8%AF%86%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">知识库</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%9F%A5%E8%AF%86%E5%BA%93/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%9F%A5%E8%AF%86%E5%BA%93/AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%9F%A5%E8%AF%86%E5%BA%93/AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">统计学习方法</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>《统计学习方法》（李航 第二版）课后习题及其代码实现</p>
+<p>学习解析优秀的代码，源文件为.ipynb格式</p>
+<p>代码来自github项目：<a target="_blank" rel="noopener" href="https://github.com/fengdu78/lihang-code">fengdu78/lihang-code:
+《统计学习方法》的代码实现 (github.com)</a></p>
+<p>第2章 感知机</p>
+<span id="more"></span>
+<h1 id="第2章-感知机">第2章 感知机</h1>
+<p>1．感知机是根据输入实例的特征向量<span class="math inline">\(x\)</span>对其进行二类分类的线性分类模型：</p>
+<p><span class="math display">\[
+f(x)=\operatorname{sign}(w \cdot x+b)
+\]</span></p>
+<p>感知机模型对应于输入空间（特征空间）中的分离超平面<span class="math inline">\(w \cdot x+b=0\)</span>。</p>
+<p>2．感知机学习的策略是极小化损失函数：</p>
+<p><span class="math display">\[
+\min _{w, b} L(w, b)=-\sum_{x_{i} \in M} y_{i}\left(w \cdot
+x_{i}+b\right)
+\]</span></p>
+<p>损失函数对应于误分类点到分离超平面的总距离。</p>
+<p>3．感知机学习算法是基于随机梯度下降法的对损失函数的最优化算法，有原始形式和对偶形式。算法简单且易于实现。原始形式中，首先任意选取一个超平面，然后用梯度下降法不断极小化目标函数。在这个过程中一次随机选取一个误分类点使其梯度下降。</p>
+<p>4．当训练数据集线性可分时，感知机学习算法是收敛的。感知机算法在训练数据集上的误分类次数<span class="math inline">\(k\)</span>满足不等式：</p>
+<p><span class="math display">\[
+k \leqslant\left(\frac{R}{\gamma}\right)^{2}
+\]</span></p>
+<p>当训练数据集线性可分时，感知机学习算法存在无穷多个解，其解由于不同的初值或不同的迭代顺序而可能有所不同。</p>
+<h3 id="二分类模型">二分类模型</h3>
+<p><span class="math inline">\(f(x) = sign(w\cdot x + b)\)</span></p>
+<p><span class="math inline">\(\operatorname{sign}(x)=\left\{\begin{array}{ll}{+1,}
+&amp; {x \geqslant 0} \\ {-1,} &amp;
+{x&lt;0}\end{array}\right.\)</span></p>
+<p>给定训练集：</p>
+<p><span class="math inline">\(T=\left\{\left(x_{1},
+y_{1}\right),\left(x_{2}, y_{2}\right), \cdots,\left(x_{N},
+y_{N}\right)\right\}\)</span></p>
+<p>定义感知机的损失函数</p>
+<p><span class="math inline">\(L(w, b)=-\sum_{x_{i} \in M} y_{i}\left(w
+\cdot x_{i}+b\right)\)</span></p>
+<table style="width:6%;">
+<colgroup>
+<col style="width: 5%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>#### 算法</td>
+</tr>
+<tr class="even">
+<td>随即梯度下降法 Stochastic Gradient Descent</td>
+</tr>
+<tr class="odd">
+<td>随机抽取一个误分类点使其梯度下降。</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(w = w + \eta y_{i}x_{i}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(b = b + \eta y_{i}\)</span></td>
+</tr>
+<tr class="even">
+<td>当实例点被误分类，即位于分离超平面的错误侧，则调整<span class="math inline">\(w\)</span>, <span class="math inline">\(b\)</span>的值，使分离超平面向该无分类点的一侧移动，直至误分类点被正确分类
+拿出iris数据集中两个分类的数据和[sepal length，sepal width]作为特征</td>
+</tr>
+<tr class="odd">
+<td><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd  <span class="comment"># 导入pandas库，用于数据处理和分析</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np  <span class="comment"># 导入numpy库，用于数值计算</span></span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris  <span class="comment"># 从sklearn.datasets模块导入load_iris函数，用于加载鸢尾花数据集</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt  <span class="comment"># 导入matplotlib.pyplot模块，用于绘图</span></span><br><span class="line">%matplotlib inline  <span class="comment"># Jupyter Notebook的魔术命令，将绘图结果直接嵌入Notebook中</span></span><br></pre></td></tr></table></figure></td>
+</tr>
+<tr class="even">
+<td><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">iris = load_iris()  <span class="comment"># 使用load_iris函数加载鸢尾花数据集，将返回的数据保存到变量iris中</span></span><br><span class="line">df = pd.DataFrame(iris.data, columns=iris.feature_names)  <span class="comment"># 创建一个DataFrame对象df，使用iris.data作为数据，iris.feature_names作为列名</span></span><br><span class="line">df[<span class="string">&#x27;label&#x27;</span>] = iris.target  <span class="comment"># 添加一个名为&#x27;label&#x27;的列，列数据为iris.target，表示鸢尾花的类别</span></span><br><span class="line">df.columns = [<span class="string">&#x27;sepal length&#x27;</span>, <span class="string">&#x27;sepal width&#x27;</span>, <span class="string">&#x27;petal length&#x27;</span>, <span class="string">&#x27;petal width&#x27;</span>, <span class="string">&#x27;label&#x27;</span>]  <span class="comment"># 重新设置DataFrame的列名</span></span><br><span class="line">df.label.value_counts()  <span class="comment"># 统计&#x27;label&#x27;列中各个类别的数量</span></span><br><span class="line"></span><br><span class="line">plt.scatter(df[:<span class="number">50</span>][<span class="string">&#x27;sepal length&#x27;</span>], df[:<span class="number">50</span>][<span class="string">&#x27;sepal width&#x27;</span>], label=<span class="string">&#x27;0&#x27;</span>)  <span class="comment"># 绘制散点图，横轴为df中前50个样本的&#x27;sepal length&#x27;列，纵轴为df中前50个样本的&#x27;sepal width&#x27;列，标记为类别0</span></span><br><span class="line">plt.scatter(df[<span class="number">50</span>:<span class="number">100</span>][<span class="string">&#x27;sepal length&#x27;</span>], df[<span class="number">50</span>:<span class="number">100</span>][<span class="string">&#x27;sepal width&#x27;</span>], label=<span class="string">&#x27;1&#x27;</span>)  <span class="comment"># 绘制散点图，横轴为df中50到100个样本的&#x27;sepal length&#x27;列，纵轴为df中50到100个样本的&#x27;sepal width&#x27;列，标记为类别1</span></span><br><span class="line">plt.xlabel(<span class="string">&#x27;sepal length&#x27;</span>)  <span class="comment"># 设置横轴标签为&#x27;sepal length&#x27;</span></span><br><span class="line">plt.ylabel(<span class="string">&#x27;sepal width&#x27;</span>)  <span class="comment"># 设置纵轴标签为&#x27;sepal width&#x27;</span></span><br><span class="line">plt.legend()  <span class="comment"># 添加图例</span></span><br><span class="line"></span><br><span class="line">data = np.array(df.iloc[:<span class="number">100</span>, [<span class="number">0</span>, <span class="number">1</span>, -<span class="number">1</span>]])  <span class="comment"># 将df中前100行的&#x27;sepal length&#x27;、&#x27;sepal width&#x27;和&#x27;label&#x27;列提取出来，保存到变量data中</span></span><br><span class="line">X, y = data[:, :-<span class="number">1</span>], data[:, -<span class="number">1</span>]  <span class="comment"># 将data中的前两列作为特征矩阵X，最后一列作为目标变量y</span></span><br><span class="line">y = np.array([<span class="number">1</span> <span class="keyword">if</span> i == <span class="number">1</span> <span class="keyword">else</span> -<span class="number">1</span> <span class="keyword">for</span> i <span class="keyword">in</span> y])  <span class="comment"># 将目标变量y中为1的标签替换为1，其余标签替换为-1，得到二分类的目标变量</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></td>
+</tr>
+<tr class="odd">
+<td><img src="../../../../../images/lihang/code/CH02感知机_code/output1.png"></td>
+</tr>
+<tr class="even">
+<td>## Perceptron</td>
+</tr>
+<tr class="odd">
+<td><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"># 数据线性可分，二分类数据</span><br><span class="line"># 此处为一元一次线性方程</span><br><span class="line"></span><br><span class="line">class Model:</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.w = np.ones(len(data[0]) - 1, dtype=np.float32)  # 初始化权重向量w，长度为特征数减1，初始化为全1</span><br><span class="line">        self.b = 0  # 初始化偏置b为0</span><br><span class="line">        self.l_rate = 0.1  # 学习率设置为0.1</span><br><span class="line"></span><br><span class="line">    def sign(self, x, w, b):</span><br><span class="line">        y = np.dot(x, w) + b  # 计算样本x与权重w的点积加上偏置b</span><br><span class="line">        return y</span><br><span class="line"></span><br><span class="line">    # 随机梯度下降法</span><br><span class="line">    def fit(self, X_train, y_train):</span><br><span class="line">        is_wrong = False</span><br><span class="line">        while not is_wrong:</span><br><span class="line">            wrong_count = 0</span><br><span class="line">            for d in range(len(X_train)):</span><br><span class="line">                X = X_train[d]  # 获取第d个样本特征向量</span><br><span class="line">                y = y_train[d]  # 获取第d个样本的标签</span><br><span class="line">                if y * self.sign(X, self.w, self.b) &lt;= 0:  # 如果样本被错误分类</span><br><span class="line">                    self.w = self.w + self.l_rate * np.dot(y, X)  # 更新权重向量w</span><br><span class="line">                    self.b = self.b + self.l_rate * y  # 更新偏置b</span><br><span class="line">                    wrong_count += 1</span><br><span class="line">            if wrong_count == 0:</span><br><span class="line">                is_wrong = True</span><br><span class="line">        return &#x27;Perceptron Model!&#x27;</span><br><span class="line"></span><br><span class="line">    def score(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">perceptron = Model()  # 创建Perceptron对象</span><br><span class="line">perceptron.fit(X, y)  # 使用训练集X和标签y训练感知器模型</span><br><span class="line">x_points = np.linspace(4, 7, 10)  # 在4到7之间生成10个等间距的点作为横轴数据</span><br><span class="line">y_ = -(perceptron.w[0] * x_points + perceptron.b) / perceptron.w[1]  # 根据感知器模型的权重和偏置计算对应的纵轴数据</span><br><span class="line">plt.plot(x_points, y_)  # 绘制分类边界线</span><br><span class="line"></span><br><span class="line">plt.plot(data[:50, 0], data[:50, 1], &#x27;bo&#x27;, color=&#x27;blue&#x27;, label=&#x27;0&#x27;)  # 绘制类别0的样本点，蓝色圆点</span><br><span class="line">plt.plot(data[50:100, 0], data[50:100, 1], &#x27;bo&#x27;, color=&#x27;orange&#x27;, label=&#x27;1&#x27;)  # 绘制类别1的样本点，橙色圆点</span><br><span class="line">plt.xlabel(&#x27;sepal length&#x27;)  # 设置横轴标签为&#x27;sepal length&#x27;</span><br><span class="line">plt.ylabel(&#x27;sepal width&#x27;)  # 设置纵轴标签为&#x27;sepal width&#x27;</span><br><span class="line">plt.legend()  # 添加图例</span><br><span class="line"></span><br><span class="line">        </span><br></pre></td></tr></table></figure></td>
+</tr>
+<tr class="even">
+<td><img src="../../../../../images/lihang/code/CH02感知机_code/output2.png"></td>
+</tr>
+<tr class="odd">
+<td>### scikit-learn实例</td>
+</tr>
+<tr class="even">
+<td><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn  <span class="comment"># 导入sklearn库</span></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> Perceptron  <span class="comment"># 从sklearn.linear_model模块导入Perceptron类</span></span><br><span class="line">sklearn.__version__  <span class="comment"># 输出sklearn库的版本信息</span></span><br><span class="line"></span><br><span class="line">clf = Perceptron(fit_intercept=<span class="literal">True</span>, max_iter=<span class="number">1000</span>, shuffle=<span class="literal">True</span>)  <span class="comment"># 创建Perceptron对象clf，设置相关参数</span></span><br><span class="line">clf.fit(X, y)  <span class="comment"># 使用训练集X和标签y训练感知器模型</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(clf.coef_)  <span class="comment"># 输出特征权重</span></span><br><span class="line"><span class="built_in">print</span>(clf.intercept_)  <span class="comment"># 输出截距</span></span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">10</span>))  <span class="comment"># 设置画布大小</span></span><br><span class="line"></span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = [<span class="string">&#x27;SimHei&#x27;</span>]  <span class="comment"># 设置中文标题显示</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = <span class="literal">False</span></span><br><span class="line">plt.title(<span class="string">&#x27;鸢尾花线性数据示例&#x27;</span>)  <span class="comment"># 设置标题</span></span><br><span class="line"></span><br><span class="line">plt.scatter(data[:<span class="number">50</span>, <span class="number">0</span>], data[:<span class="number">50</span>, <span class="number">1</span>], c=<span class="string">&#x27;b&#x27;</span>, label=<span class="string">&#x27;Iris-setosa&#x27;</span>)  <span class="comment"># 绘制类别0的样本点，蓝色圆点</span></span><br><span class="line">plt.scatter(data[<span class="number">50</span>:<span class="number">100</span>, <span class="number">0</span>], data[<span class="number">50</span>:<span class="number">100</span>, <span class="number">1</span>], c=<span class="string">&#x27;orange&#x27;</span>, label=<span class="string">&#x27;Iris-versicolor&#x27;</span>)  <span class="comment"># 绘制类别1的样本点，橙色圆点</span></span><br><span class="line"></span><br><span class="line">x_points = np.arange(<span class="number">4</span>, <span class="number">8</span>)  <span class="comment"># 生成4到7之间的一组等差数列作为横轴数据</span></span><br><span class="line">y_ = -(clf.coef_[<span class="number">0</span>][<span class="number">0</span>] * x_points + clf.intercept_) / clf.coef_[<span class="number">0</span>][<span class="number">1</span>]  <span class="comment"># 根据感知机的权重和截距计算纵轴数据</span></span><br><span class="line">plt.plot(x_points, y_)  <span class="comment"># 绘制感知机的决策边界线</span></span><br><span class="line"></span><br><span class="line">plt.legend()  <span class="comment"># 显示图例</span></span><br><span class="line">plt.grid(<span class="literal">False</span>)  <span class="comment"># 不显示网格</span></span><br><span class="line">plt.xlabel(<span class="string">&#x27;sepal length&#x27;</span>)  <span class="comment"># 设置横轴标签为&#x27;sepal length&#x27;</span></span><br><span class="line">plt.ylabel(<span class="string">&#x27;sepal width&#x27;</span>)  <span class="comment"># 设置纵轴标签为&#x27;sepal width&#x27;</span></span><br><span class="line">plt.legend()  <span class="comment"># 显示图例</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></td>
+</tr>
+<tr class="odd">
+<td><img src="../../../../../images/lihang/code/CH02感知机_code/output3.png"></td>
+</tr>
+<tr class="even">
+<td>现在可以看到，所有的两种鸢尾花都被正确分类了。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="第2章感知机-习题">第2章感知机-习题</h2>
+<h3 id="习题2.1">习题2.1</h3>
+<p>  Minsky 与 Papert
+指出：感知机因为是线性模型，所以不能表示复杂的函数，如异或
+(XOR)。验证感知机为什么不能表示异或。
+<strong>总的来说，在二维坐标系上画出的点位无法感知机的线性分类器的一条线性函数正确划分，因此无法使用感知机。</strong>（或许采用非线性分类器可以？
+<strong>解答：</strong></p>
+<p>对于异或函数XOR，全部的输入与对应的输出如下：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(x^{(1)}\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(x^{(2)}\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(y\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"> 1</td>
+<td style="text-align: center;"> 1</td>
+<td style="text-align: center;">-1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"> 1</td>
+<td style="text-align: center;">-1</td>
+<td style="text-align: center;"> 1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">-1</td>
+<td style="text-align: center;"> 1</td>
+<td style="text-align: center;"> 1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">-1</td>
+<td style="text-align: center;">-1</td>
+<td style="text-align: center;">-1</td>
+</tr>
+</tbody>
+</table>
+<p>参考代码：https://github.com/wzyonggege/statistical-learning-method</p>
+<p>本文代码更新地址：https://github.com/fengdu78/lihang-code</p>
+<p>习题解答：https://github.com/datawhalechina/statistical-learning-method-solutions-manual</p>
+<p>中文注释制作：机器学习初学者公众号：ID:ai-start-com</p>
+<p>配置环境：python 3.5+</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>树栖九天
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://yoursite.com/2023/07/15/%E7%9F%A5%E8%AF%86%E5%BA%93/AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/CH02%E6%84%9F%E7%9F%A5%E6%9C%BA_code/" title="第2章 感知机 coding">http://yoursite.com/2023/07/15/知识库/AI/机器学习/统计学习方法/CH02感知机_code/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/07/12/%E7%9F%A5%E8%AF%86%E5%BA%93/AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/CH02%E6%84%9F%E7%9F%A5%E6%9C%BA/" rel="prev" title="第2章 感知机">
+                  <i class="fa fa-chevron-left"></i> 第2章 感知机
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">树栖九天</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">91k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:22</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script size="200" alpha="0.2" zIndex="1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
