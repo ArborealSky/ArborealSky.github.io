@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://yoursite.com/2023/07/16/images/lihang/CH03k近邻/fig3_2.png">
 <meta property="og:image" content="http://yoursite.com/images/lihang/CH03k近邻/fig3_2.png">
 <meta property="article:published_time" content="2023-07-16T09:16:16.000Z">
-<meta property="article:modified_time" content="2023-07-16T09:31:29.895Z">
+<meta property="article:modified_time" content="2023-07-24T14:48:01.989Z">
 <meta property="article:author" content="树栖九天">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary">
@@ -134,18 +134,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -226,9 +226,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-07-16 17:16:16 / 修改时间：17:31:29" itemprop="dateCreated datePublished" datetime="2023-07-16T17:16:16+08:00">2023-07-16</time>
+      <time title="创建时间：2023-07-16 17:16:16" itemprop="dateCreated datePublished" datetime="2023-07-16T17:16:16+08:00">2023-07-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-07-24 22:48:01" itemprop="dateModified" datetime="2023-07-24T22:48:01+08:00">2023-07-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -266,7 +272,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.9k</span>
+      <span>3.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -329,7 +335,7 @@ Polygons。可以通过检索Delaunay三角剖分和Voronoi划分进一步了解
 <h2 id="k近邻模型">k近邻模型</h2>
 <h3 id="算法">算法</h3>
 <p>输入: <span class="math inline">\(T=\{(x_1,y_1),(x_2,y_2),\dots,(x_N,y_N)\}， x_i\in
-\cal{X}\sube{\bf{R}^n}, y_i\in\cal{Y}=\{c_1,c_2,\dots, c_k\}\)</span>;
+\cal{X} \sube{\bf{R}^n}, y_i\in\cal{Y}=\{c_1,c_2,\dots, c_k\}\)</span>;
 实例特征向量<span class="math inline">\(x\)</span></p>
 <p>输出: 实例所属的<span class="math inline">\(y\)</span></p>
 <p>步骤:</p>
@@ -357,6 +363,9 @@ j=1,2,\dots,K
 </ol>
 <p><span class="math display">\[L_p(x_i,
 x_j)=\left(\sum_{l=1}^{n}{\left|x_{i}^{(l)}-x_{j}^{(l)}\right|^p}\right)^{\frac{1}{p}}\]</span></p>
+<blockquote>
+<p>还有一个切比雪夫距离，也称棋盘距离，计算方法是一圈圈向外扩散</p>
+</blockquote>
 <p><img src="./../../../../../images/lihang/CH03k近邻/fig3_2.png"></p>
 <p><img src="/images/lihang/CH03k近邻/fig3_2.png"></p>
 <p>考虑二维的情况，上图给出了不同的<span class="math inline">\(p\)</span>值情况下与原点距离为1的点的图形。</p>
@@ -389,9 +398,18 @@ c_i)}=1-\frac{1}{k}\sum_{x_i\in N_k(x)}{I(y_i= c_i)}\)</span></p>
 <p>kNN在实现的时候，要考虑多维数据的存储，这里会用到树结构。</p>
 <p>在Scipy Cookbook里面有个kd树具体的实现<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>可参考</p>
 <h3 id="构造kdtree">构造KDTree</h3>
+<blockquote>
+<p>为了减少对每个实例点扫描计算的时间</p>
+</blockquote>
 <p>KDTree的构建是一个递归的过程</p>
 <p>注意: KDTree左边的点比父节点小，右边的点比父节点大。</p>
 <p>这里面有提到，KDTree搜索时效率未必是最优的，这个和样本分布有关系。随机分布样本<strong>KDTree搜索</strong>(这里应该是<strong>最</strong>近邻搜索)的平均计算复杂度是<span class="math inline">\(O(\log N)\)</span>，空间维数<span class="math inline">\(K\)</span>接近训练样本数<span class="math inline">\(N\)</span>时，搜索效率急速下降，几乎<span class="math inline">\(O(N)\)</span></p>
+<p>[kd树构造细节]](<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/393775739">讲讲KD-Tree - 知乎
+(zhihu.com)</a>)</p>
+<blockquote>
+<p>切分的维度选择，其实就是循环往复，比如说一个三维的空间，那切分的垂直于的维度为，1,2,3，
+1,2,3</p>
+</blockquote>
 <p>看维度，如果维度比较高，搜索效率很低。当然，在考虑维度的同时也要考虑样本的规模。</p>
 <p>考虑个例子</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="number">1</span>, <span class="number">1</span>],</span><br><span class="line"> [<span class="number">2</span>, <span class="number">1</span>],</span><br><span class="line"> [<span class="number">3</span>, <span class="number">1</span>],</span><br><span class="line"> [<span class="number">4</span>, <span class="number">1</span>],</span><br><span class="line"> [<span class="number">5</span>, <span class="number">1</span>],</span><br><span class="line"> [<span class="number">6</span>, <span class="number">1</span>],</span><br><span class="line"> [<span class="number">100</span>, <span class="number">1</span>]，</span><br><span class="line"> [<span class="number">1000</span>, <span class="number">1</span>]]</span><br></pre></td></tr></table></figure>
@@ -417,6 +435,9 @@ c_i)}=1-\frac{1}{k}\sum_{x_i\in N_k(x)}{I(y_i= c_i)}\)</span></p>
 <p>KDTree搜索</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">	subgraph 对应图3.5</span><br><span class="line">	A[A]---B((B))</span><br><span class="line">	A---C((C))</span><br><span class="line">	B(B)---F((F))</span><br><span class="line">	B---D((D))</span><br><span class="line">	C(C)---G((G))</span><br><span class="line">	C---E((E))</span><br><span class="line">	end</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>这个例子说明了搜索的方法，理解一下书中的图3.5，对应的KDTree如上。</p>
+<blockquote>
+<p>书上的例子只有举了一个最近邻的寻找案例，但是对于k&gt;1的k近邻没有举例，为什么这样构建平衡树的搜索方法的原理没有解释，缺乏直观的理解。</p>
+</blockquote>
 <h2 id="参考">参考</h2>
 <ol type="1">
 <li></li>
@@ -473,6 +494,9 @@ Space</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a><
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2023/07/31/%E7%9F%A5%E8%AF%86%E5%BA%93/coding/ACwing/%E9%A1%BA%E6%97%B6%E9%92%88%E5%9B%9E%E5%BD%A2%E8%BE%93%E5%87%BA%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84/" rel="next" title="回形输出二维数组">
+                  回形输出二维数组 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -505,14 +529,14 @@ Space</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a><
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">94k</span>
+    <span title="站点总字数">95k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:25</span>
+    <span title="站点阅读时长">1:27</span>
   </span>
 </div>
 <div class="busuanzi-count">
