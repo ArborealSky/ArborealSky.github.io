@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"show_result":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="《统计学习方法》（李航 第二版）的笔记 原笔记内容来自于 github项目 第4章 朴素贝叶斯法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第4章 朴素贝叶斯法">
+<meta property="og:url" content="http://yoursite.com/2023/08/01/%E7%9F%A5%E8%AF%86%E5%BA%93/AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/CH04%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%B3%95/index.html">
+<meta property="og:site_name" content="寒木春华">
+<meta property="og:description" content="《统计学习方法》（李航 第二版）的笔记 原笔记内容来自于 github项目 第4章 朴素贝叶斯法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/.com//Users/85927/Desktop/Lihang-master/CH04/assets/nb_pgm.png">
+<meta property="article:published_time" content="2023-08-01T15:00:16.000Z">
+<meta property="article:modified_time" content="2023-08-01T15:00:36.239Z">
+<meta property="article:author" content="树栖九天">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/.com//Users/85927/Desktop/Lihang-master/CH04/assets/nb_pgm.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2023/08/01/%E7%9F%A5%E8%AF%86%E5%BA%93/AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/CH04%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%B3%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2023/08/01/%E7%9F%A5%E8%AF%86%E5%BA%93/AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/CH04%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%B3%95/","path":"2023/08/01/知识库/AI/机器学习/统计学习方法/CH04朴素贝叶斯法/","title":"第4章 朴素贝叶斯法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>第4章 朴素贝叶斯法 | 寒木春华</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">寒木春华</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>Links</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ch04-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">CH04 朴素贝叶斯法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%A0%E8%8A%82%E7%9B%AE%E5%BD%95"><span class="nav-number">1.1.1.</span> <span class="nav-text">章节目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E8%AF%BB"><span class="nav-number">1.1.2.</span> <span class="nav-text">导读</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">朴素贝叶斯法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E6%95%B0%E9%87%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">参数数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%8E%A8%E5%AF%BC"><span class="nav-number">1.2.2.</span> <span class="nav-text">算法推导</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E7%8B%AC%E7%AB%8B%E5%81%87%E8%AE%BE"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">条件独立假设</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1"><span class="nav-number">1.3.</span> <span class="nav-text">参数估计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1"><span class="nav-number">1.3.1.</span> <span class="nav-text">极大似然估计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1"><span class="nav-number">1.3.2.</span> <span class="nav-text">贝叶斯估计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">1.4.</span> <span class="nav-text">例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B4.1"><span class="nav-number">1.4.1.</span> <span class="nav-text">例4.1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%904.2"><span class="nav-number">1.4.2.</span> <span class="nav-text">例子4.2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A9%E5%B1%95"><span class="nav-number">1.5.</span> <span class="nav-text">扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%91%E5%A2%9E%E5%BC%BA%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF"><span class="nav-number">1.5.1.</span> <span class="nav-text">树增强朴素贝叶斯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BD%91"><span class="nav-number">1.5.2.</span> <span class="nav-text">贝叶斯网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lr%E4%B8%8Enb"><span class="nav-number">1.5.3.</span> <span class="nav-text">LR与NB</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">1.6.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="树栖九天"
+      src="/images/my_avatar.png">
+  <p class="site-author-name" itemprop="name">树栖九天</p>
+  <div class="site-description" itemprop="description">欢迎，这是一个废柴大学生的博客─=≡Σ(((つ•̀ω•́)つ</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      推荐链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jinx0106.github.io/" title="https:&#x2F;&#x2F;jinx0106.github.io&#x2F;" rel="noopener" target="_blank">思想楼阁-徐瑾</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/08/01/%E7%9F%A5%E8%AF%86%E5%BA%93/AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/CH04%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/my_avatar.png">
+      <meta itemprop="name" content="树栖九天">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="寒木春华">
+      <meta itemprop="description" content="欢迎，这是一个废柴大学生的博客─=≡Σ(((つ•̀ω•́)つ">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="第4章 朴素贝叶斯法 | 寒木春华">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          第4章 朴素贝叶斯法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-08-01 23:00:16 / 修改时间：23:00:36" itemprop="dateCreated datePublished" datetime="2023-08-01T23:00:16+08:00">2023-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%9F%A5%E8%AF%86%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">知识库</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%9F%A5%E8%AF%86%E5%BA%93/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%9F%A5%E8%AF%86%E5%BA%93/AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%9F%A5%E8%AF%86%E5%BA%93/AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">统计学习方法</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>《统计学习方法》（李航 第二版）的笔记</p>
+<p>原笔记内容来自于 <a target="_blank" rel="noopener" href="https://github.com/SmirkCao/Lihang.git">github项目</a></p>
+<p>第4章 朴素贝叶斯法</p>
+<span id="more"></span>
+<h1 id="ch04-朴素贝叶斯法">CH04 朴素贝叶斯法</h1>
+<figure>
+<embed src="https://www.smirkcao.info/hit_gits/Lihang/CH04/README.md">
+<figcaption aria-hidden="true">Hits</figcaption>
+</figure>
+<p>[TOC]</p>
+<h2 id="前言">前言</h2>
+<h3 id="章节目录">章节目录</h3>
+<ol type="1">
+<li>朴素贝叶斯法的学习与分类
+<ol type="1">
+<li>基本方法</li>
+<li>后验概率最大化的含义</li>
+</ol></li>
+<li>朴素贝叶斯法的参数估计
+<ol type="1">
+<li>极大似然估计</li>
+<li>学习与分类算法</li>
+<li>贝叶斯估计</li>
+</ol></li>
+</ol>
+<h3 id="导读">导读</h3>
+<ul>
+<li><p>书中讲解的生成模型不多，生成模型学习联合概率分布，NB是典型的生成模型，与之对应的判别模型，是逻辑回归可以参考<a href="../CH06/README.md">CH06</a></p></li>
+<li><p><strong>0-1损失函数</strong>时的期望风险最小化</p></li>
+<li><p>给定数据集的时候，我们能知道不同类别的分布，这个很好统计的量叫<strong>先验</strong><span class="math inline">\(P(Y=c_k)\)</span></p>
+<ul>
+<li>垃圾邮件识别可以用朴素贝叶斯的方法</li>
+</ul></li>
+<li><p>NB是常见的概率图模型之一[^4]。最简单的概率图模型，有向图。概率图模型是执行贝叶斯推理的主流工具。
+<img src="/.com//Users/85927/Desktop/Lihang-master/CH04/assets/nb_pgm.png" alt="nb_pgm"> 这个图中， <span class="math inline">\(y\)</span>是输出变量，<span class="math inline">\(x\)</span>是输入变量，是观测变量。生成模型直接描述了输出以多大的概率生成输入。在图模型里，<strong>已知观测是灰色的，未知变量是白色的</strong>。</p></li>
+<li><p>第一个参考文献<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>，这里推荐阅读，链接中的手稿在2017年还有更新，开头部分介绍了很多符号的定义，可以配合<a href="../CH01/README.md">CH01</a>的内容来理解。讲述了生成模型和判别模型，朴素贝叶斯和逻辑回归</p></li>
+<li><p>另外在讲到CRF的时候，也有对比贝叶斯和逻辑回归，可以在<a href="../CH11/README.md">CH11</a>的时候再回顾这里。</p></li>
+</ul>
+<h2 id="朴素贝叶斯法">朴素贝叶斯法</h2>
+<h3 id="参数数量">参数数量</h3>
+<p>书中有这样一段内容</p>
+<blockquote>
+<p>条件概率分布<span class="math inline">\(P(X=x|Y=c_k)\)</span>有指数级数量的参数，其实际估计是不可行的。</p>
+</blockquote>
+<p>上面这段有两点：</p>
+<ol type="1">
+<li><p>指数级数量的参数 这点书后面解释了，<span class="math inline">\(K\prod_{j=1}^nS_j\)</span>，这个为什么是指数级数量，假设<span class="math inline">\(S_j=S\)</span>，表达式变为<span class="math inline">\(KS^n\)</span>，实际上在参考文献<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>中有这个问题的讨论，里面用的是二值函数，可以参考理解</p></li>
+<li><p>实际估计是不可行的</p>
+<p>估计这么多参数需要更多的样本来刷参数，实际上获取这么多样本是不可行的。</p></li>
+</ol>
+<h3 id="算法推导">算法推导</h3>
+<p>朴素贝叶斯法是基于<strong>贝叶斯定理</strong>与<strong>特征条件独立假设</strong>的分类方法。</p>
+<ul>
+<li>贝叶斯定理</li>
+<li>特征条件独立假设</li>
+</ul>
+<h4 id="条件独立假设">条件独立假设</h4>
+<p><strong>independent and identically distributed</strong>
+(<em>i.i.d.</em> or <em>iid</em> or <strong>IID</strong>)</p>
+<p>求<span class="math inline">\(P(Y|X)\)</span>，其中<span class="math inline">\(X\in\{X_1,X_2,\dots,X_n\}\)</span>，条件独立假设这里给定<span class="math inline">\(Y\)</span>的情况下：</p>
+<ol type="1">
+<li>每一个<span class="math inline">\(X_i\)</span>和其他的每个<span class="math inline">\(X_k\)</span>是条件独立的</li>
+<li>每一个<span class="math inline">\(X_i\)</span>和其他的每个<span class="math inline">\(X_k\)</span>的子集是条件独立的</li>
+</ol>
+<p>条件独立性假设是: <span class="math display">\[
+\begin{align}
+P(X=x|Y=c_k)&amp;=P(X^{(1)},\dots,X^{(n)}|Y=c_k)\\
+&amp;=\prod^n_{j=1}P(X^{(j)}=x^{(j)}|Y=c_k)
+\end{align}
+\]</span>
+上面这个公式可能看起来不是太容易理解独立在哪里，这里引用一下文献<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>中关于贝叶斯算法推导中的一部分 <span class="math display">\[
+\begin{aligned}
+P(X|Y)&amp;=P(X_1,X_2|Y)\\
+&amp;=\color{red}P(X_1|X_2,Y)\color{black}P(X_2|Y)\\
+&amp;=\color{red}P(X_1|Y)\color{black}P(X_2|Y)
+\end{aligned}
+\]</span> 红色部分从上到下基于IID</p>
+<p>条件独立假设等于是说用于分类的<strong>特征</strong>在<strong>类确定</strong>的条件下都是<strong>条件独立</strong>的。</p>
+<h2 id="参数估计">参数估计</h2>
+<h3 id="极大似然估计">极大似然估计</h3>
+<blockquote>
+<p>为了估计状态变量的条件分布，利用贝叶斯法则，有 <span class="math display">\[
+\underbrace{P(X|Y)}_{posterior}=\frac{\overbrace{P(Y|X)}^{likelihood}\overbrace{P(X)}^{prior}}{\underbrace{P(Y)}_{evidence}}=\frac{\overbrace{P(Y|X)}^{likelihood}\overbrace{P(X)}^{prior}}{\underbrace{\sum\limits_x
+P(Y|X)P(X)}_{evidence}}
+\]</span> 其中<span class="math inline">\(P(X|Y)\)</span>为给定<span class="math inline">\(Y\)</span>下<span class="math inline">\(X\)</span>的后验概率(Posterior)， <span class="math inline">\(P(Y|X)\)</span>称为似然(Likelyhood)，<span class="math inline">\(P(X)\)</span>称为先验(Prior)<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>。</p>
+</blockquote>
+<ul>
+<li><p>后验概率最大化的含义</p>
+<p>朴素贝叶斯法将实例分到<strong>后验概率最大的类</strong>中，
+这等价于<strong>期望风险最小化</strong>。</p></li>
+<li><p>后验，观察到<span class="math inline">\(Y\)</span>之后，对<span class="math inline">\(X\)</span>的信念</p></li>
+</ul>
+<h3 id="贝叶斯估计">贝叶斯估计</h3>
+<p>对于<span class="math inline">\(x\)</span>的某个特征的取值没有在先验中出现的情况
+，如果用极大似然估计，这种情况的可能性就是0。
+但是出现这种情况的原因通常是因为数据集不能全覆盖样本空间，出现未知的情况处理的策略就是做平滑。
+公式(4.10)对应了出现未知样本的情况下，该给出一个什么样的值才合理的方案。
+<span class="math display">\[
+P_{\lambda}(X^{(j)}=a_{jl}|Y=c_k)=\frac{\sum\limits_{i=1}^NI(x_i^{j}=a_{jl},y_j=c_k)+\lambda}{\sum\limits_{i=1}^NI(y_j=c_k)+S_j\lambda}
+\]</span></p>
+<p>其中<span class="math inline">\(\lambda \geqslant 0\)</span></p>
+<p>当<span class="math inline">\(\lambda =
+0\)</span>的时候，就是极大似然估计。</p>
+<p>当<span class="math inline">\(\lambda=1\)</span>的时候，这个平滑方案叫做Laplace
+Smoothing。拉普拉斯平滑相当于给未知变量给定了先验概率。</p>
+<h2 id="例子">例子</h2>
+<h3 id="例4.1">例4.1</h3>
+<p>这个例子，有两个特征，一个标签，我们看看通过已知的数据表4.1能拿到哪些计算结果</p>
+<ol type="1">
+<li><p>先验Prior，通过统计<span class="math inline">\(Y\)</span>的数据分布可以知道</p></li>
+<li><p>不同<span class="math inline">\(X\)</span>和<span class="math inline">\(Y\)</span>的组合会产生多少参数，<span class="math inline">\(X^{(1)}\)</span>可能的取值集合<span class="math inline">\(A_1=\{1,2,3\}\)</span>大小为<span class="math inline">\(S_1=3\)</span>，<span class="math inline">\(X^{(2)}\)</span>可能的取值集合<span class="math inline">\(A_2=\{S,M,L\}\)</span>大小为<span class="math inline">\(S_2=3\)</span>，<span class="math inline">\(Y\in
+C=\{1,-1\}\)</span>大小为<span class="math inline">\(K=2\)</span>
+参数的数量为<span class="math inline">\(KS_1S_2=18\)</span>，具体的空间的分布是一个<span class="math inline">\(3\times 3\times2\)</span>的三维矩阵</p></li>
+<li><p>每个特征的增加，本来应该在原来的<span class="math inline">\(Y，X\)</span>的基础上增加<span class="math inline">\(S_i\)</span>倍的维度，但因为做了特征条件独立假设，增加的可能性，是base在给定的标签<span class="math inline">\(Y\)</span>上的，也就是说实际上增加了<span class="math inline">\(S_i\)</span>个取值</p></li>
+<li><p>这个题的解题过程可以考虑为：Groupby Y；Groupby Y，X1；Groupby
+Y，X2；对于新样本查表连乘。</p></li>
+</ol>
+<h3 id="例子4.2">例子4.2</h3>
+<h2 id="扩展">扩展</h2>
+<h3 id="树增强朴素贝叶斯">树增强朴素贝叶斯</h3>
+<p>IID强限制放宽，就是TAN(Tree Augmented Naive
+Bayes)。可以看做是NB到贝叶斯网的过渡。</p>
+<h3 id="贝叶斯网">贝叶斯网</h3>
+<p>朴素贝叶斯法中假设输入变量都是条件独立的，如果假设他们之间存在概率依存关系，模型就变成了<strong>贝叶斯网络</strong>。这个书中简单提了一句作为扩展。</p>
+<p>在SLAM的后端优化部分，因子图优化可以从概率的角度分析这个问题。从贝叶斯网络的角度，SLAM可以自然的表达成一个动态贝叶斯网络。在SLAM中有观测方程和运动方程，对应了贝叶斯网络中的条件概率关系。</p>
+<h3 id="lr与nb">LR与NB</h3>
+<p>逻辑斯谛回归与朴素贝叶斯的关系</p>
+<p>这个在参考文献<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>中有描述，另外在<a href="../CH06/README.md">CH06</a>中也有说明如下：</p>
+<blockquote>
+<p>逻辑斯谛回归与朴素贝叶斯模型的关系参见文献[4]</p>
+</blockquote>
+<p>这里文献[4]和本章的参考文献<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>同源，都是Mitchell
+TM的Machine Learning，现在依然是第一版，第二版的更新章节Tom有挂在网上<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<p>这里插一句Mitchell教授的介绍，CMU计算机学院院长，1997年创建自动化学习和探索中心，该中心是全球的高校中首个机器学习系，也是首个开设机器学习博士课程的机构。1997-2016，Mitchell是该中心负责人。</p>
+<p>这些都还OK，主要是Mitchell教授加入了松鼠AI。</p>
+<h2 id="参考">参考</h2>
+<ol type="1">
+<li></li>
+<li></li>
+<li></li>
+<li>[^4 ]: <a href="-">An Introduction to Conditional Random Fields for
+Relational Learning</a></li>
+</ol>
+<p><strong><a href="#导读">⬆ top</a></strong></p>
+<aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p><a href="##%20参考">视觉SLAM十四讲, 高翔</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a target="_blank" rel="noopener" href="http://www.cs.cmu.edu/~tom/mlbook/NBayeslogReg.pdf">Generative and
+discriminative classifiers: Naive Bayes and logistic regression</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a target="_blank" rel="noopener" href="http://www.cs.cmu.edu/~tom/mlbook/NBayeslogReg.pdf">Generative and
+discriminative classifiers: Naive Bayes and logistic regression</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a href="##%20参考">视觉SLAM十四讲, 高翔</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p><a target="_blank" rel="noopener" href="http://www.cs.cmu.edu/~tom/mlbook/NBayeslogReg.pdf">Generative and
+discriminative classifiers: Naive Bayes and logistic regression</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><a target="_blank" rel="noopener" href="http://www.cs.cmu.edu/~tom/mlbook/NBayeslogReg.pdf">Generative and
+discriminative classifiers: Naive Bayes and logistic regression</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p><a target="_blank" rel="noopener" href="http://www.cs.cmu.edu/~tom/NewChapters.html">Machine Learning New
+Chapter</a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>树栖九天
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://yoursite.com/2023/08/01/%E7%9F%A5%E8%AF%86%E5%BA%93/AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/CH04%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%B3%95/" title="第4章 朴素贝叶斯法">http://yoursite.com/2023/08/01/知识库/AI/机器学习/统计学习方法/CH04朴素贝叶斯法/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/07/31/%E7%9F%A5%E8%AF%86%E5%BA%93/coding/ACwing/%E9%A1%BA%E6%97%B6%E9%92%88%E5%9B%9E%E5%BD%A2%E8%BE%93%E5%87%BA%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84/" rel="prev" title="回形输出二维数组">
+                  <i class="fa fa-chevron-left"></i> 回形输出二维数组
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/08/06/%E7%94%9F%E6%B4%BB%E8%AE%B0%E5%BD%95/2023%E5%B9%B4/%E8%BF%91%E5%86%B5%E8%AE%B0%E5%BD%95%EF%BC%88%E5%85%B6%E5%8D%81%EF%BC%89_2023/" rel="next" title="近况记录（其十）_2023">
+                  近况记录（其十）_2023 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">树栖九天</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">100k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:31</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script size="200" alpha="0.2" zIndex="1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
