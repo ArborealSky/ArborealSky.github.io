@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"show_result":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="最近在调研image caption的AI模型，突然觉得很多东西难以解释，各种意义上的 大半夜实在是难受得不行，也睡不着，想把自己的想法整理一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI、意识与人类">
+<meta property="og:url" content="http://yoursite.com/2023/12/17/%E6%9D%82%E8%AE%B0/AI%E3%80%81%E6%84%8F%E8%AF%86%E4%B8%8E%E4%BA%BA%E7%B1%BB/index.html">
+<meta property="og:site_name" content="寒木春华">
+<meta property="og:description" content="最近在调研image caption的AI模型，突然觉得很多东西难以解释，各种意义上的 大半夜实在是难受得不行，也睡不着，想把自己的想法整理一下。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-17T06:25:57.000Z">
+<meta property="article:modified_time" content="2023-12-18T06:19:19.481Z">
+<meta property="article:author" content="树栖九天">
+<meta property="article:tag" content="杂记">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2023/12/17/%E6%9D%82%E8%AE%B0/AI%E3%80%81%E6%84%8F%E8%AF%86%E4%B8%8E%E4%BA%BA%E7%B1%BB/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2023/12/17/%E6%9D%82%E8%AE%B0/AI%E3%80%81%E6%84%8F%E8%AF%86%E4%B8%8E%E4%BA%BA%E7%B1%BB/","path":"2023/12/17/杂记/AI、意识与人类/","title":"AI、意识与人类"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>AI、意识与人类 | 寒木春华</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">寒木春华</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>Links</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="nav-number">1.1.</span> <span class="nav-text">一个简单的例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6%E4%B9%A0%E5%88%B0%E7%9A%84%E6%98%AF%E5%87%BD%E6%95%B0ai%E6%98%AF%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84"><span class="nav-number">1.2.</span> <span class="nav-text">为什么学习到的是函数？AI是怎么做的？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E5%B9%B4%E5%89%8D%E7%9A%84%E5%AD%90%E5%BC%B9%E6%AD%A3%E4%B8%AD%E6%88%91%E7%9A%84%E7%9C%89%E5%BF%83"><span class="nav-number">2.</span> <span class="nav-text">多年前的子弹，正中我的眉心</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%99%BA%E8%83%BD%E4%B8%8E%E6%84%8F%E8%AF%86"><span class="nav-number">2.1.</span> <span class="nav-text">智能与意识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E6%88%91%E6%9C%89%E4%BB%80%E4%B9%88%E5%BD%B1%E5%93%8D"><span class="nav-number">2.2.</span> <span class="nav-text">对我有什么影响</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="树栖九天"
+      src="/images/my_avatar.png">
+  <p class="site-author-name" itemprop="name">树栖九天</p>
+  <div class="site-description" itemprop="description">欢迎，这是一个废柴大学生的博客─=≡Σ(((つ•̀ω•́)つ</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      推荐链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jinx0106.github.io/" title="https:&#x2F;&#x2F;jinx0106.github.io&#x2F;" rel="noopener" target="_blank">思想楼阁-徐瑾</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/12/17/%E6%9D%82%E8%AE%B0/AI%E3%80%81%E6%84%8F%E8%AF%86%E4%B8%8E%E4%BA%BA%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/my_avatar.png">
+      <meta itemprop="name" content="树栖九天">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="寒木春华">
+      <meta itemprop="description" content="欢迎，这是一个废柴大学生的博客─=≡Σ(((つ•̀ω•́)つ">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="AI、意识与人类 | 寒木春华">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AI、意识与人类
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-12-17 14:25:57" itemprop="dateCreated datePublished" datetime="2023-12-17T14:25:57+08:00">2023-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-12-18 14:19:19" itemprop="dateModified" datetime="2023-12-18T14:19:19+08:00">2023-12-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%9D%82%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">杂记</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>最近在调研image
+caption的AI模型，突然觉得很多东西难以解释，各种意义上的</p>
+<p>大半夜实在是难受得不行，也睡不着，想把自己的想法整理一下。</p>
+<span id="more"></span>
+<h1 id="前言">前言</h1>
+<p>现在我们所指的AI，大多是基于大规模神经网络建立起来的模型。</p>
+<p>神经网络是从13年开始崛起，它的特点是可以模拟非常复杂的函数映射关系，也就是我们所谓的智能函数。这些经过训练得到的函数参数非常的复杂，以至于我们无法准确地理解它当中的参数的意义和作用，我们只是通过结果发现，这样训练出来的神经网络能够解决问题。</p>
+<h2 id="一个简单的例子">一个简单的例子</h2>
+<p>试想一下，对于一个二次函数，二次项系数a、一次项系数b以及常数项系数c。还记得这些参数的意义吗？a的大小正负决定了曲线的陡峭程度和曲线开口方向、b的大小正负也会影响曲线的陡峭程度、c的数值会影响整个函数在坐标系中的整体偏移位置，a与b的正负则共同影响了曲线的对称轴的位置。</p>
+<p>好的，你记得你在初中学习这样一个二次函数花了多少的时间才掌握并理解透彻吗？或许是半个月？一个月？没错，但是请你注意，这样一个普通函数，仅仅只有a,b,c三个参数。而现在的神经网络，参数的数量可以非常轻易地超过千万级别。我们忽略网络中的神经元类型，连接方式和网络结构，并且暂时不考虑多元输入输出的问题（比如对于一个图像识别任务，输入可能是24x24的像素矩阵，输出就是若干个类别），即使忽略如此多的重要的影响因素，我们似乎也无法完整理解一个千万级别参数量的函数，况且学习得到的模型并不一定是一个有规律的多项式函数。</p>
+<p>我们现在面临的问题就是，无法理解我们创造出来的模型中的根源性的事物，或者说，产生智能的部分。即使对我这样一个本科生来说，我也可以很轻易地搓出来一个拥有百万参数的小模型，但是我确实无法完全掌握我的造物。我只能在训练的过程中对它进行指导，也就是调整超参数（非训练参数，可以理解为模型训练方向的指导纲领）或者试着改变网络结构，但是我无法保证优化后的结果一定是我想要的。有人很喜欢这样的不确定性，因为它可能会带来令人惊喜的结果。但是对于一项会被广泛应用的技术，如果没有搞清楚内部的原理，很多学者和工程师对AI，尤其是对拥有超大规模参数的模型，比如Chat
+GPT（1750亿参数），保持谨慎和防备的态度。</p>
+<p>毕竟谁也不想在每确保飞机内部安全性的前提下，就驾驶着它来一次环球航行。</p>
+<h2 id="为什么学习到的是函数ai是怎么做的">为什么学习到的是函数？AI是怎么做的？</h2>
+<p>为什么我们要训练模型去学习得到一个智能函数？或者说，为什么要找这样一种输入输出的映射关系？</p>
+<p>首先，这个世界的运转是遵循一定的规律的，物质的变化，能量的转移。世界是物质的，物质是受物理学原理驱动的，即使是人以及我们引以为豪的造物，也是由物质构成的，并按照一定的规律行事，我们通常无法意识到这一点。</p>
+<p>那么，规律本身就是一种映射关系。就像是一个果酱加工厂，你输入苹果，得到的就是苹果酱，输入草莓，得到的就是草莓酱。你将小孩送入学校，那么毕业之后他就可以习得一定的知识和技能，如果你把小孩送入电子厂，那毕业后他打螺丝一定飞快（</p>
+<p>我们使用信息来描述物质，用函数来描述物质的规律，得到的结果就是经过规律作用之后的产物，因此我们可以预测。但只是有限的预测，假设我们想要预测下一次体彩的开奖结果，我们需要收集开奖现场每一个空气分子的运动状态，电机的电流大小，桌子的微小震动等等，这些远远不够，你怎么能保证某个工作人员不会会突然干扰结果呢？当然，在收集充分信息的前提下，我们甚至可以预测工作人员是否会故意使坏。但是能做到收集如此庞大的信息流吗？不可能，至少现阶段是这样的。如果你想要预测人类未来的命运，就更不可能了。况且，预测未来的这个行为本身，也会通过蝴蝶效应，影响本来应该发生的结果。</p>
+<p>AI有可能做到这一切吗？有可能，但是微乎其微。要解决几个问题，数据、模型、算力、资金。</p>
+<p>假设我们想要预测人类的未来，那么我们需要收集过去的历史数据，很遗憾，人类的历史又短又缺乏详细的记录（或许某些人的对话改变了历史进程），现存的历史还有部分是经过修饰或者篡改的，我们既没有充足的数据集来训练，而且这个数据集的噪声还非常大。模型，现在搓出来一个能和人对话的AI模型已经是前无古人的成就了，至于能预测人类未来的模型并从中学习出人类的规律，这个后来者，遥遥无期，我还是更看好社会学家的理论工作。算力，猜猜GPT训练了多久？假设真有这样的模型出现，并且有完好的数据集，以目前的算力，或许模型训练一百年之后，真正的未来已经来了。资金，举国之力不行，举全球之力也不行。</p>
+<h1 id="多年前的子弹正中我的眉心">多年前的子弹，正中我的眉心</h1>
+<p>如果从头说起，这个事情还要追溯到我高中时候读过的书。《人类简史》是一本知名度很高的书，对于这一系列其实还有另外两本书《今日简史》和《未来简史》。</p>
+<p>两本书涉及的内容很多，有关这次博客的主题的内容是：意识与人工智能。我是在19年的时候读的这两本书，书的实际出版时间更早。现在看来，作者的预见性真的非常强。</p>
+<h2 id="智能与意识">智能与意识</h2>
+<p>什么是智能？笼统地说，能解决一定的问题的能力，就是智能。有智能就是有意识吗？应该不是。</p>
+<p>围棋AI，能根据棋局来判断未来的落子。目前围棋AI的能力，已经远超人类的顶尖棋手，甚至能够开辟新的套路。但是我们能够说它有意识吗？应该不能，因为它只会下棋，或者说，它只是一段代码。</p>
+<p>那什么是意识呢？我们该如何定义意识？</p>
+<p>引用百度百科的定义：</p>
+<blockquote>
+<p>“意识”是<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/人脑/1432766?fromModule=lemma_inlink">人脑</a>对<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/大脑/791360?fromModule=lemma_inlink">大脑</a>内外表象的觉察。<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/生理学/308500?fromModule=lemma_inlink">生理学</a>上，意识<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/脑区/8836461?fromModule=lemma_inlink">脑区</a>指可以获得其它各脑区信息的意识脑区（在前额叶周边）。意识脑区最重要的功能就是辨识真伪，即它可以辨识自己脑区中的表象是来自于外部感官还是来自于想像或回忆。</p>
+</blockquote>
+<p>如果要我自己来描述意识，我会把意识称之为：能够认识自我、认识外在世界、发现规律并利用规律的能力。很模糊的定义，不是吗？那是当然！如果我能搞明白这个问题，我就不是坐在这里写没人看的博客了。</p>
+<p>智能似乎是意识的附带产物，其实不是这样的，因为智能是先于意识出现的。试着回想生物的进化历程，你会发现智能出现的比意识要早很多。</p>
+<p>那么智能发展到一定程度，集合到一定程度，就会产生意识吗？或许是这样的，因此我们需要警惕人工智能的黑盒问题。</p>
+<p>这么多问题的根源，在于我们没法理解意识，为什么无法理解意识？因为我们无法有效研究人脑。对于AI，我们至少可以扒开模型的网络，去看看里面的参数，并且我们清楚地知道网络中的神经元是怎么样连接的。但是对于人脑，这几乎是办不到的。人脑是十分脆弱的，侵入式的实验和研究，很可能会对实验者造成不可挽回的后果。因此我们通常采用动物替代或者非侵入式的实验方法。而且人脑的结构更加复杂多变，现在很多的优秀的神经网络模型都是参考脑科学的研究成果进行设计的，例如循环神经网络中的transformer。比较地狱的是，据我所知，脑科学发展最快的时候恰巧是二战时期，德国在战俘身上开展大量惨无人道的脑部实验。</p>
+<p>这一切似乎形成了闭环，AI的不可控 --&gt; 研究AI模型产生智能的原理
+--&gt; 惧怕AI产生意识威胁人类 --&gt; 无法理解AI模型 --&gt;
+试着从人脑入手 --&gt; 脑科学研究进展缓慢 --&gt;
+相较之下AI的进步速度和表现能力日新月异。</p>
+<h2 id="对我有什么影响">对我有什么影响</h2>
+<p>我为什么会困惑？因为我觉得我学的知识的终极无法从根源进行解释，这让我感到害怕。</p>
+<p>慢慢意识到AI与人的差据，不管是智能层面还是“类人”层面，都在逐渐减小，从本质上来说，我们都是一种复杂映射关系的具体化，物质化。这会让我有时感到一种虚无和空洞，尽管持续时间很短。</p>
+<p>它不会直接影响我的学习生活，特指负面影响，但是会让我思考人生的意义，虽然想了也是白想。这个意义也是说不清道不明的东西。</p>
+<p>人类自我标榜的意识和人权是不是真的存在或者独一无二，现在对我来说已经不是那么重要了。毕竟我只能再活个五十年左右，我只是想尽可能在未来好好看看这个世界。</p>
+<p>意识到这一切，真的是一种非常奇妙的感觉，嗯，我产生这种感觉的原因也会是我自己身复杂映射的结果。我阴差阳错选了AI专业或许就是整个世界的复杂映射过程中必然产生的中间量。</p>
+<p>不要去解释意义，去感受它。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>树栖九天
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://yoursite.com/2023/12/17/%E6%9D%82%E8%AE%B0/AI%E3%80%81%E6%84%8F%E8%AF%86%E4%B8%8E%E4%BA%BA%E7%B1%BB/" title="AI、意识与人类">http://yoursite.com/2023/12/17/杂记/AI、意识与人类/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%9D%82%E8%AE%B0/" rel="tag"># 杂记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/12/17/%E7%94%9F%E6%B4%BB%E8%AE%B0%E5%BD%95/2023%E5%B9%B4/%E8%BF%91%E5%86%B5%E8%AE%B0%E5%BD%95%EF%BC%88%E5%85%B6%E5%8D%81%E4%B9%9D%EF%BC%89_2023/" rel="prev" title="近况记录（其十九）_2023.md">
+                  <i class="fa fa-chevron-left"></i> 近况记录（其十九）_2023.md
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">树栖九天</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">116k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:46</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script size="200" alpha="0.2" zIndex="1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
